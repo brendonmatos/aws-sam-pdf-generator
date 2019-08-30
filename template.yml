@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Description: >-
+  Service to generate pdf documents based in HTML
+
+Metadata:
+  
+  AWS::ServerlessRepo::Application:
+    Name: !Ref AwsStackName
+    Description: Service to generate pdf documents based in HTML
+    Author: Brendon Ferreira
+    LicenseUrl: LICENSE.txt
+    ReadmeUrl: README.md
+    SemanticVersion: 0.0.1
+
+Resources:
+  
+  GenerateDocuments:
+    Type: 'AWS::Serverless::Function'
+    
+    Properties:
+      CodeUri: .
+      Handler: lambda/index.handler
+      Runtime: nodejs8.10
+      Description: >-
+        Service to generate pdf documents based in HTML
+      MemorySize: 1024 # recommended memory
+      Timeout: 30
+      
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref AwsS3GeneratedDocumentBucket
+        - S3CrudPolicy:
+            BucketName: !Ref AwsS3DocumentTemplatesBucket
+
+      Environment:
+        Variables:
+          AWS_S3_GENERATED_DOCUMENTS_BUCKET: !Ref AwsS3GeneratedDocumentBucket
+          AWS_S3_DOCUMENT_TEMPLATES_BUCKET: !Ref AwsS3DocumentTemplatesBucket
+          AWS_STACK_NAME: !Ref AwsStackName
+
+
+Parameters:
+  
+  AwsS3GeneratedDocumentBucket:
+    Type: String
+    Default: latest
+    Description: Lambda version.
+
+  AwsS3DocumentTemplatesBucket:
+    Type: String
+    Default: latest
+    Description: Lambda version.
+  
+  AwsStackName:
+    Type: String
+    Default: latest
+    Description: Lambda version.

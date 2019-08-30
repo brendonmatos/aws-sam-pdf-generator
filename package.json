@@ -1,0 +1,16 @@
+{
+  "name": "aws-sam-pdf-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "prepare": "env $(cat .env | xargs) ./scripts/create-buckets.sh",
+    "deploy": "env $(cat .env | xargs) ./scripts/build.sh && env $(cat .env | xargs) ./scripts/deploy.sh"
+  },
+  "author": "Brendon Ferreira <brendonferreiradm@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chrome-aws-lambda": "^1.19.0",
+    "puppeteer-core": "^1.19.0"
+  }
+}

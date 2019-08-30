@@ -1,0 +1,8 @@
+{
+    "templateKey": "file_key_inside_key.html",
+    "outputKey": "generated_file_key.pdf",
+    "parameters": {
+      "fullName": "Brendon Ferreira de Matos",
+      "birthDate": "25/04/1998"
+    }
+}
